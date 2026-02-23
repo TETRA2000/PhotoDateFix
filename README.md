@@ -8,17 +8,18 @@ When photos are imported to the Mac Photos app via USB (rather than iCloud sync)
 
 ## How It Works
 
-1. **Scan** — The app fetches all image assets from the photo library using PhotoKit, reads each image's EXIF `DateTimeOriginal` via ImageIO, and compares it against the `PHAsset.creationDate` that Photos displays. Photos differing by more than 2 seconds are flagged as mismatched.
-2. **Review** — Mismatched photos are shown in a list with thumbnails, both dates, and the time difference. Tap a photo to see a detailed comparison.
-3. **Fix** — Select one or more photos and batch-update their `creationDate` to match the original EXIF date using `PHAssetChangeRequest`.
+1. **Filter (optional)** — Set a date range before scanning to limit which photos are fetched. This avoids costly iCloud downloads for photos outside the range of interest.
+2. **Scan** — The app fetches image assets from the photo library using PhotoKit, reads each image's EXIF `DateTimeOriginal` via ImageIO, and compares it against the `PHAsset.creationDate` that Photos displays. Photos differing by more than 2 seconds are flagged as mismatched.
+3. **Review** — Mismatched photos are shown in a list with thumbnails, both dates, and the time difference. Tap a photo to see a detailed comparison. The date range filter can also be applied after scanning to narrow the results.
+4. **Fix** — Select one or more photos and batch-update their `creationDate` to match the original EXIF date using `PHAssetChangeRequest`.
 
 ## Project Structure
 
 ```
 Photo Metadata Editor/
   Photo_Metadata_EditorApp.swift  — App entry point
-  ContentView.swift               — Main view: auth flow, scan, results list, toolbar
-  PhotoLibraryService.swift       — PhotoKit authorization, EXIF scanning, date fixing
+  ContentView.swift               — Main view: auth flow, scan, results list, filter, toolbar
+  PhotoLibraryService.swift       — PhotoKit authorization, EXIF scanning, date filtering, date fixing
   PhotoAssetItem.swift            — Data model for a photo with mismatched dates
   PhotoRowView.swift              — List row: thumbnail, dates, selection checkbox
   PhotoDetailView.swift           — Detail view: larger preview, full date comparison

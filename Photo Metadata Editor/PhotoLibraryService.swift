@@ -29,6 +29,32 @@ final class PhotoLibraryService {
     /// Tolerance in seconds for date comparison to avoid false positives from rounding
     var dateTolerance: TimeInterval = 2.0
 
+    // MARK: - Filtering
+
+    var filterStartDate: Date?
+    var filterEndDate: Date?
+
+    var filteredPhotos: [PhotoAssetItem] {
+        mismatchedPhotos.filter { item in
+            if let start = filterStartDate, item.exifDate < start {
+                return false
+            }
+            if let end = filterEndDate, item.exifDate > end {
+                return false
+            }
+            return true
+        }
+    }
+
+    var isFilterActive: Bool {
+        filterStartDate != nil || filterEndDate != nil
+    }
+
+    func clearFilter() {
+        filterStartDate = nil
+        filterEndDate = nil
+    }
+
     // MARK: - Authorization
 
     func checkAuthorization() {
@@ -68,6 +94,19 @@ final class PhotoLibraryService {
 
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+
+        // Apply date filter at the fetch level to avoid downloading EXIF data from iCloud unnecessarily
+        var predicates: [NSPredicate] = []
+        if let start = filterStartDate {
+            predicates.append(NSPredicate(format: "creationDate >= %@", start as NSDate))
+        }
+        if let end = filterEndDate {
+            predicates.append(NSPredicate(format: "creationDate <= %@", end as NSDate))
+        }
+        if !predicates.isEmpty {
+            fetchOptions.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+        }
+
         let fetchResult = PHAsset.fetchAssets(with: .image, options: fetchOptions)
 
         let totalCount = fetchResult.count
@@ -194,22 +233,24 @@ final class PhotoLibraryService {
     }
 
     func selectAll() {
-        for i in mismatchedPhotos.indices {
+        let filteredIDs = Set(filteredPhotos.map(\.id))
+        for i in mismatchedPhotos.indices where filteredIDs.contains(mismatchedPhotos[i].id) {
             mismatchedPhotos[i].isSelected = true
         }
     }
 
     func deselectAll() {
-        for i in mismatchedPhotos.indices {
+        let filteredIDs = Set(filteredPhotos.map(\.id))
+        for i in mismatchedPhotos.indices where filteredIDs.contains(mismatchedPhotos[i].id) {
             mismatchedPhotos[i].isSelected = false
         }
     }
 
     var selectedItems: [PhotoAssetItem] {
-        mismatchedPhotos.filter(\.isSelected)
+        filteredPhotos.filter(\.isSelected)
     }
 
     var allSelected: Bool {
-        !mismatchedPhotos.isEmpty && mismatchedPhotos.allSatisfy(\.isSelected)
+        !filteredPhotos.isEmpty && filteredPhotos.allSatisfy(\.isSelected)
     }
 }

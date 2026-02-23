@@ -6,6 +6,7 @@ struct ContentView: View {
     @State private var showFixConfirmation = false
     @State private var fixError: String?
     @State private var showFixError = false
+    @State private var showFilter = false
 
     var body: some View {
         NavigationStack {
@@ -79,17 +80,28 @@ struct ContentView: View {
     }
 
     private var idleView: some View {
-        ContentUnavailableView {
-            Label("Scan Your Library", systemImage: "magnifyingglass")
-        } description: {
-            Text("Tap the scan button to find photos whose dates differ from the original EXIF metadata.")
-        } actions: {
-            Button("Start Scan") {
-                Task {
-                    await service.scanForMismatches()
-                }
+        VStack(spacing: 0) {
+            if showFilter {
+                filterBar
             }
-            .buttonStyle(.borderedProminent)
+            Spacer()
+            ContentUnavailableView {
+                Label("Scan Your Library", systemImage: "magnifyingglass")
+            } description: {
+                Text("Tap the scan button to find photos whose dates differ from the original EXIF metadata.")
+                if service.isFilterActive {
+                    Text("Date filter is active — only photos in the selected range will be scanned.")
+                        .foregroundStyle(.blue)
+                }
+            } actions: {
+                Button("Start Scan") {
+                    Task {
+                        await service.scanForMismatches()
+                    }
+                }
+                .buttonStyle(.borderedProminent)
+            }
+            Spacer()
         }
     }
 
@@ -128,6 +140,9 @@ struct ContentView: View {
             } else {
                 VStack(spacing: 0) {
                     summaryBar
+                    if showFilter {
+                        filterBar
+                    }
                     photoList
                 }
             }
@@ -136,7 +151,7 @@ struct ContentView: View {
 
     private var summaryBar: some View {
         HStack {
-            Text("\(service.mismatchedPhotos.count) mismatched")
+            Text("\(service.filteredPhotos.count) of \(service.mismatchedPhotos.count) mismatched")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
             Spacer()
@@ -149,9 +164,87 @@ struct ContentView: View {
         .background(.bar)
     }
 
+    // MARK: - Filter
+
+    private var filterBar: some View {
+        VStack(spacing: 8) {
+            HStack {
+                Text("From")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .frame(width: 40, alignment: .leading)
+                if let startDate = service.filterStartDate {
+                    DatePicker(
+                        "",
+                        selection: Binding(
+                            get: { startDate },
+                            set: { service.filterStartDate = $0 }
+                        ),
+                        displayedComponents: .date
+                    )
+                    .labelsHidden()
+                    Button { service.filterStartDate = nil } label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundStyle(.secondary)
+                    }
+                    .buttonStyle(.plain)
+                } else {
+                    Button("Set start date") {
+                        service.filterStartDate = Calendar.current.date(
+                            from: DateComponents(year: 2010, month: 1, day: 1)
+                        ) ?? .now
+                    }
+                    .font(.subheadline)
+                    Spacer()
+                }
+            }
+
+            HStack {
+                Text("To")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .frame(width: 40, alignment: .leading)
+                if let endDate = service.filterEndDate {
+                    DatePicker(
+                        "",
+                        selection: Binding(
+                            get: { endDate },
+                            set: { service.filterEndDate = $0 }
+                        ),
+                        displayedComponents: .date
+                    )
+                    .labelsHidden()
+                    Button { service.filterEndDate = nil } label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundStyle(.secondary)
+                    }
+                    .buttonStyle(.plain)
+                } else {
+                    Button("Set end date") {
+                        service.filterEndDate = Calendar.current.date(
+                            from: DateComponents(year: 2020, month: 12, day: 31)
+                        ) ?? .now
+                    }
+                    .font(.subheadline)
+                    Spacer()
+                }
+            }
+
+            if service.isFilterActive {
+                Button("Clear Filter") {
+                    service.clearFilter()
+                }
+                .font(.subheadline)
+            }
+        }
+        .padding(.horizontal)
+        .padding(.vertical, 8)
+        .background(.bar)
+    }
+
     private var photoList: some View {
         List {
-            ForEach(service.mismatchedPhotos) { item in
+            ForEach(service.filteredPhotos) { item in
                 NavigationLink {
                     PhotoDetailView(item: item) {
                         Task {
@@ -192,7 +285,7 @@ struct ContentView: View {
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
-            if !service.mismatchedPhotos.isEmpty {
+            if !service.filteredPhotos.isEmpty {
                 Button(service.allSelected ? "Deselect All" : "Select All") {
                     if service.allSelected {
                         service.deselectAll()
@@ -203,6 +296,14 @@ struct ContentView: View {
             }
         }
         ToolbarItemGroup(placement: .topBarTrailing) {
+            Button {
+                withAnimation {
+                    showFilter.toggle()
+                }
+            } label: {
+                Label("Filter", systemImage: service.isFilterActive ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
+            }
+
             if !service.selectedItems.isEmpty {
                 Button {
                     showFixConfirmation = true
