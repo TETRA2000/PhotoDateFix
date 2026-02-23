@@ -24,9 +24,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		A90D80ED2F4B21200051491C /* Photo Metadata Editor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Photo Metadata Editor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A90D80FC2F4B21210051491C /* Photo Metadata EditorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Photo Metadata EditorTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A90D81062F4B21210051491C /* Photo Metadata EditorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Photo Metadata EditorUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A90D80ED2F4B21200051491C /* PhotoDateFix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoDateFix.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A90D80FC2F4B21210051491C /* PhotoDateFixTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhotoDateFixTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A90D81062F4B21210051491C /* PhotoDateFixUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhotoDateFixUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -85,9 +85,9 @@
 		A90D80EE2F4B21200051491C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A90D80ED2F4B21200051491C /* Photo Metadata Editor.app */,
-				A90D80FC2F4B21210051491C /* Photo Metadata EditorTests.xctest */,
-				A90D81062F4B21210051491C /* Photo Metadata EditorUITests.xctest */,
+				A90D80ED2F4B21200051491C /* PhotoDateFix.app */,
+				A90D80FC2F4B21210051491C /* PhotoDateFixTests.xctest */,
+				A90D81062F4B21210051491C /* PhotoDateFixUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,9 +95,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A90D80EC2F4B21200051491C /* Photo Metadata Editor */ = {
+		A90D80EC2F4B21200051491C /* PhotoDateFix */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A90D81102F4B21210051491C /* Build configuration list for PBXNativeTarget "Photo Metadata Editor" */;
+			buildConfigurationList = A90D81102F4B21210051491C /* Build configuration list for PBXNativeTarget "PhotoDateFix" */;
 			buildPhases = (
 				A90D80E92F4B21200051491C /* Sources */,
 				A90D80EA2F4B21200051491C /* Frameworks */,
@@ -110,16 +110,16 @@
 			fileSystemSynchronizedGroups = (
 				A90D80EF2F4B21200051491C /* Photo Metadata Editor */,
 			);
-			name = "Photo Metadata Editor";
+			name = PhotoDateFix;
 			packageProductDependencies = (
 			);
 			productName = "Photo Metadata Editor";
-			productReference = A90D80ED2F4B21200051491C /* Photo Metadata Editor.app */;
+			productReference = A90D80ED2F4B21200051491C /* PhotoDateFix.app */;
 			productType = "com.apple.product-type.application";
 		};
-		A90D80FB2F4B21210051491C /* Photo Metadata EditorTests */ = {
+		A90D80FB2F4B21210051491C /* PhotoDateFixTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A90D81132F4B21210051491C /* Build configuration list for PBXNativeTarget "Photo Metadata EditorTests" */;
+			buildConfigurationList = A90D81132F4B21210051491C /* Build configuration list for PBXNativeTarget "PhotoDateFixTests" */;
 			buildPhases = (
 				A90D80F82F4B21210051491C /* Sources */,
 				A90D80F92F4B21210051491C /* Frameworks */,
@@ -133,16 +133,16 @@
 			fileSystemSynchronizedGroups = (
 				A90D80FF2F4B21210051491C /* Photo Metadata EditorTests */,
 			);
-			name = "Photo Metadata EditorTests";
+			name = PhotoDateFixTests;
 			packageProductDependencies = (
 			);
 			productName = "Photo Metadata EditorTests";
-			productReference = A90D80FC2F4B21210051491C /* Photo Metadata EditorTests.xctest */;
+			productReference = A90D80FC2F4B21210051491C /* PhotoDateFixTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		A90D81052F4B21210051491C /* Photo Metadata EditorUITests */ = {
+		A90D81052F4B21210051491C /* PhotoDateFixUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A90D81162F4B21210051491C /* Build configuration list for PBXNativeTarget "Photo Metadata EditorUITests" */;
+			buildConfigurationList = A90D81162F4B21210051491C /* Build configuration list for PBXNativeTarget "PhotoDateFixUITests" */;
 			buildPhases = (
 				A90D81022F4B21210051491C /* Sources */,
 				A90D81032F4B21210051491C /* Frameworks */,
@@ -156,11 +156,11 @@
 			fileSystemSynchronizedGroups = (
 				A90D81092F4B21210051491C /* Photo Metadata EditorUITests */,
 			);
-			name = "Photo Metadata EditorUITests";
+			name = PhotoDateFixUITests;
 			packageProductDependencies = (
 			);
 			productName = "Photo Metadata EditorUITests";
-			productReference = A90D81062F4B21210051491C /* Photo Metadata EditorUITests.xctest */;
+			productReference = A90D81062F4B21210051491C /* PhotoDateFixUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -186,7 +186,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A90D80E82F4B21200051491C /* Build configuration list for PBXProject "Photo Metadata Editor" */;
+			buildConfigurationList = A90D80E82F4B21200051491C /* Build configuration list for PBXProject "PhotoDateFix" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -200,9 +200,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A90D80EC2F4B21200051491C /* Photo Metadata Editor */,
-				A90D80FB2F4B21210051491C /* Photo Metadata EditorTests */,
-				A90D81052F4B21210051491C /* Photo Metadata EditorUITests */,
+				A90D80EC2F4B21200051491C /* PhotoDateFix */,
+				A90D80FB2F4B21210051491C /* PhotoDateFixTests */,
+				A90D81052F4B21210051491C /* PhotoDateFixUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -258,12 +258,12 @@
 /* Begin PBXTargetDependency section */
 		A90D80FE2F4B21210051491C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = A90D80EC2F4B21200051491C /* Photo Metadata Editor */;
+			target = A90D80EC2F4B21200051491C /* PhotoDateFix */;
 			targetProxy = A90D80FD2F4B21210051491C /* PBXContainerItemProxy */;
 		};
 		A90D81082F4B21210051491C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = A90D80EC2F4B21200051491C /* Photo Metadata Editor */;
+			target = A90D80EC2F4B21200051491C /* PhotoDateFix */;
 			targetProxy = A90D81072F4B21210051491C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -476,7 +476,7 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Photo Metadata Editor.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Photo Metadata Editor";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PhotoDateFix.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PhotoDateFix";
 			};
 			name = Debug;
 		};
@@ -498,7 +498,7 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Photo Metadata Editor.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Photo Metadata Editor";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PhotoDateFix.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PhotoDateFix";
 			};
 			name = Release;
 		};
@@ -545,7 +545,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A90D80E82F4B21200051491C /* Build configuration list for PBXProject "Photo Metadata Editor" */ = {
+		A90D80E82F4B21200051491C /* Build configuration list for PBXProject "PhotoDateFix" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A90D810E2F4B21210051491C /* Debug */,
@@ -554,7 +554,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A90D81102F4B21210051491C /* Build configuration list for PBXNativeTarget "Photo Metadata Editor" */ = {
+		A90D81102F4B21210051491C /* Build configuration list for PBXNativeTarget "PhotoDateFix" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A90D81112F4B21210051491C /* Debug */,
@@ -563,7 +563,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A90D81132F4B21210051491C /* Build configuration list for PBXNativeTarget "Photo Metadata EditorTests" */ = {
+		A90D81132F4B21210051491C /* Build configuration list for PBXNativeTarget "PhotoDateFixTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A90D81142F4B21210051491C /* Debug */,
@@ -572,7 +572,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A90D81162F4B21210051491C /* Build configuration list for PBXNativeTarget "Photo Metadata EditorUITests" */ = {
+		A90D81162F4B21210051491C /* Build configuration list for PBXNativeTarget "PhotoDateFixUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A90D81172F4B21210051491C /* Debug */,

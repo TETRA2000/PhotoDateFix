@@ -1,4 +1,4 @@
-# Photo Metadata Editor
+# PhotoDateFix
 
 An iOS app that detects and fixes photos whose dates were incorrectly changed during import to the Photos app.
 
@@ -16,8 +16,8 @@ When photos are imported to the Mac Photos app via USB (rather than iCloud sync)
 ## Project Structure
 
 ```
-Photo Metadata Editor/
-  Photo_Metadata_EditorApp.swift  — App entry point
+PhotoDateFix/
+  PhotoDateFixApp.swift           — App entry point
   ContentView.swift               — Main view: auth flow, scan, results list, filter, toolbar
   PhotoLibraryService.swift       — PhotoKit authorization, EXIF scanning, date filtering, date fixing
   PhotoAssetItem.swift            — Data model for a photo with mismatched dates
