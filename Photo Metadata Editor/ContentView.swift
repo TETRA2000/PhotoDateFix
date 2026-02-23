@@ -20,7 +20,7 @@ struct ContentView: View {
                     mainContentView
                 }
             }
-            .navigationTitle("Photo Date Fixer")
+            .navigationTitle("PhotoDateFix")
             .task {
                 service.checkAuthorization()
             }

@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct Photo_Metadata_EditorApp: App {
+struct PhotoDateFixApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
