@@ -4,7 +4,7 @@ An iOS app that detects and fixes photos whose dates were incorrectly changed du
 
 ## Problem
 
-When photos are imported to the Mac Photos app via USB (rather than iCloud sync), any date/time adjustments previously made on iPhone are lost. The Photos app reverts the `creationDate` to the file's original EXIF `DateTimeOriginal`, discarding user edits. See [Apple Discussions thread](https://discussions.apple.com/thread/253805086?sortBy=rank) for context.
+When photos are imported to the Mac Photos app via USB (rather than iCloud sync), any date/time adjustments previously made on iPhone are lost. The Photos app reverts the `creationDate` to the file's original EXIF `DateTimeOriginal`, discarding user edits. See [Reddit thread](https://www.reddit.com/r/ApplePhotos/comments/1giucci/imported_photos_wrong_date_different_than_similar/) for context.
 
 ## How It Works
 
