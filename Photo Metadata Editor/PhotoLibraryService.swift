@@ -94,6 +94,19 @@ final class PhotoLibraryService {
 
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+
+        // Apply date filter at the fetch level to avoid downloading EXIF data from iCloud unnecessarily
+        var predicates: [NSPredicate] = []
+        if let start = filterStartDate {
+            predicates.append(NSPredicate(format: "creationDate >= %@", start as NSDate))
+        }
+        if let end = filterEndDate {
+            predicates.append(NSPredicate(format: "creationDate <= %@", end as NSDate))
+        }
+        if !predicates.isEmpty {
+            fetchOptions.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+        }
+
         let fetchResult = PHAsset.fetchAssets(with: .image, options: fetchOptions)
 
         let totalCount = fetchResult.count

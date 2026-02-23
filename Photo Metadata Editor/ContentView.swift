@@ -80,17 +80,28 @@ struct ContentView: View {
     }
 
     private var idleView: some View {
-        ContentUnavailableView {
-            Label("Scan Your Library", systemImage: "magnifyingglass")
-        } description: {
-            Text("Tap the scan button to find photos whose dates differ from the original EXIF metadata.")
-        } actions: {
-            Button("Start Scan") {
-                Task {
-                    await service.scanForMismatches()
-                }
+        VStack(spacing: 0) {
+            if showFilter {
+                filterBar
             }
-            .buttonStyle(.borderedProminent)
+            Spacer()
+            ContentUnavailableView {
+                Label("Scan Your Library", systemImage: "magnifyingglass")
+            } description: {
+                Text("Tap the scan button to find photos whose dates differ from the original EXIF metadata.")
+                if service.isFilterActive {
+                    Text("Date filter is active — only photos in the selected range will be scanned.")
+                        .foregroundStyle(.blue)
+                }
+            } actions: {
+                Button("Start Scan") {
+                    Task {
+                        await service.scanForMismatches()
+                    }
+                }
+                .buttonStyle(.borderedProminent)
+            }
+            Spacer()
         }
     }
 
@@ -285,14 +296,12 @@ struct ContentView: View {
             }
         }
         ToolbarItemGroup(placement: .topBarTrailing) {
-            if !service.mismatchedPhotos.isEmpty {
-                Button {
-                    withAnimation {
-                        showFilter.toggle()
-                    }
-                } label: {
-                    Label("Filter", systemImage: service.isFilterActive ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
+            Button {
+                withAnimation {
+                    showFilter.toggle()
                 }
+            } label: {
+                Label("Filter", systemImage: service.isFilterActive ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
             }
 
             if !service.selectedItems.isEmpty {
